@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Beach House – Bookings</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --accent:#0ea5e9;
+      --dark:#0f172a;
+      --muted:#64748b;
+      --card:#ffffff;
+      --radius:14px;
+    }
+    *{box-sizing:border-box}
+    body{font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:0;background:#f1f5f9;color:var(--dark);-webkit-font-smoothing:antialiased}
+
+    /* Header / Hero */
+    .hero{position:relative;height:380px;display:flex;align-items:flex-end;border-bottom-left-radius:18px;border-bottom-right-radius:18px;overflow:hidden}
+    .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(0,0,0,0.45));}
+    .hero-img{position:absolute;inset:0;background-size:cover;background-position:center;filter:contrast(1.02) saturate(1.02)}
+    .hero-content{position:relative;padding:28px 24px;color:white;z-index:2;max-width:1100px;margin:auto}
+    .title{font-size:28px;font-weight:700;margin:0 0 6px}
+    .subtitle{margin:0;font-size:15px;color:rgba(255,255,255,0.9)}
+
+    /* Main container */
+    .container{max-width:980px;margin:28px auto;padding:22px}
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:20px}
+
+    /* Card */
+    .card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 6px 24px rgba(15,23,42,0.06)}
+    .muted{color:var(--muted);font-size:14px}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .gallery img{width:100%;height:150px;object-fit:cover;border-radius:10px}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:10px;padding:11px 14px;border-radius:10px;background:var(--accent);color:white;text-decoration:none;font-weight:600}
+    .btn.secondary{background:transparent;border:1px solid rgba(15,23,42,0.06);color:var(--dark)}
+
+    /* Calendar iframe */
+    .calendar-embed iframe{width:100%;height:420px;border-radius:10px;border:0}
+
+    /* Sticky footer */
+    footer{position:sticky;bottom:16px;max-width:980px;margin:0 auto;padding:12px 22px;display:flex;justify-content:space-between;gap:12px}
+    .footer-card{flex:1;background:white;padding:12px;border-radius:12px;box-shadow:0 6px 20px rgba(15,23,42,0.06);display:flex;align-items:center;justify-content:space-between}
+
+    /* Mobile */
+    @media(max-width:880px){
+      .grid{grid-template-columns:1fr}
+      .gallery img{height:120px}
+      .hero{height:260px}
+      footer{position:fixed;left:12px;right:12px;bottom:12px}
+      .calendar-embed iframe{height:300px}
+    }
+  </style>
+</head>
+<body>
+  <!--
+    NOTE: place your main photo at: /images/beach.jpg relative to this HTML file.
+    If you prefer using a remote URL, replace the background-image in .hero-img style below.
+  -->
+
+  <div class="hero">
+    <div class="hero-img" style="background-image:url('images/beach.jpg')"></div>
+    <div class="hero-content">
+      <h1 class="title">Beach House — Friends & Family Booking</h1>
+      <p class="subtitle">Choose your dates, request a booking, and we'll confirm on a first-come basis. Check the calendar below before requesting.</p>
+    </div>
+  </div>
+
+  <main class="container">
+    <div class="grid">
+      <section class="card">
+        <h3 style="margin:0 0 8px">How it works</h3>
+        <p class="muted">1) Check the availability calendar → 2) Click Book Dates → 3) We'll confirm and block the dates on the calendar.</p>
+
+        <div style="height:12px"></div>
+        <div class="gallery" aria-hidden="true">
+          <!-- If you only have one image it's repeated to form a small gallery. Replace or add more images in /images/ -->
+          <img src="images/beach.jpg" alt="Beach House photo 1" />
+          <img src="images/beach.jpg" alt="Beach House photo 2" />
+        </div>
+
+        <div style="height:16px"></div>
+        <p class="muted">Address: <strong>Beach House</strong> • Sleeps: <strong>6</strong> • Bedrooms: <strong>3</strong></p>
+
+        <div style="height:12px"></div>
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScnNbGkTxZnonqfnY-i70KnGqtkIYUTDt3_z6IneTFKJomLqA/viewform?usp=header" target="_blank">Book Dates</a>
+        <a class="btn secondary" href="#calendar" style="margin-left:8px">View Calendar</a>
+
+        <div style="height:18px"></div>
+        <h4 style="margin:0 0 8px">House rules (short)</h4>
+        <ul style="margin:0 0 0 18px;color:var(--muted)">
+          <li>No smoking inside</li>
+          <li>Check-in after 3pm / Check-out by 10am</li>
+          <li>Max guests: 6</li>
+        </ul>
+      </section>
+
+      <aside class="card">
+        <h3 style="margin-top:0">Availability</h3>
+        <p class="muted">Live calendar — dates marked busy are unavailable.</p>
+        <div id="calendar" class="calendar-embed" style="margin-top:12px">
+          <iframe src="https://calendar.google.com/calendar/embed?src=MmUxODQxZDJjYTRlMjNiNzcwMTk1MDUyNmRjNTk5YWViODI1NzEwNTRiNWIzYzM0NGY4ODVjNjA5OTNiMjU4YkBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&ctz=UTC" title="Availability calendar"></iframe>
+        </div>
+
+        <div style="height:14px"></div>
+        <p style="margin:0;font-size:14px">Have a question? Email: <a href="mailto:owner@example.com">owner@example.com</a></p>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-card">
+      <div>
+        <strong>Beach House</strong><div style="font-size:13px;color:var(--muted)">Friends & Family bookings</div>
+      </div>
+      <div style="display:flex;gap:10px;align-items:center">
+        <a class="btn" href="https://docs.google.com/forms/d/e/1FAIpQLScnNbGkTxZnonqfnY-i70KnGqtkIYUTDt3_z6IneTFKJomLqA/viewform?usp=header" target="_blank">Request Booking</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
